@@ -30,13 +30,13 @@ import { type TextInputProps } from "../../types";
 
 export const TextInput: React.FC<TextInputProps> = ({
   onTextChange,
-  placeholder = "Start typing your content here...",
+  placeholder = "I am the Child Component, start typing your content here...",
   initialValue = "",
 }) => {
   return (
-    <div className="w-full">
+    <div className="w-full mt-20 flex justify-center">
       <textarea
-        className="w-[40%] p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        className="w-[40%] h-55 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         placeholder={placeholder}
         defaultValue={initialValue}
         onChange={(e) => onTextChange(e.target.value)}

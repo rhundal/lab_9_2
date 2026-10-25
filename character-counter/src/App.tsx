@@ -1,8 +1,8 @@
 import "./App.css";
-import MainComponent from "./components/MainComponent/MainComponent";
+import CharacterCounter from "./components/CharacterCounter/CharacterCounter";
 
 function App() {
-  return <MainComponent />;
+  return <CharacterCounter />;
 }
 
 export default App;
