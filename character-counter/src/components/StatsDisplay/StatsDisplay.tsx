@@ -12,6 +12,26 @@ export const StatsDisplay: React.FC<
   maxWords,
   targetReadingTime,
 }) => {
+  // console.log("readingTime from CharacterCounter Component");
+  // console.log(stats.readingTime);
+
+  let currentReadingTime = stats.readingTime;
+  let extractedCurrentTime = currentReadingTime.toString().split(":");
+  let convertedCurrentMins = extractedCurrentTime.at(0);
+  let convertedCurrentSecs = extractedCurrentTime.at(1);
+  console.log(extractedCurrentTime);
+  let totalCurrentTime: string | number = (
+    (Number(convertedCurrentMins) / 60 + Number(convertedCurrentSecs)) /
+    100
+  ).toFixed(2);
+
+  console.log("tot time ", totalCurrentTime);
+
+  let currentColor =
+    Number(totalCurrentTime) < targetReadingTime!
+      ? "text-red-500"
+      : "text-green-500";
+
   return (
     <div className="place-items-center">
       <div className="grid grid-rows-2 w-[40%] mt-10 h-40 p-4 border border-gray-300 rounded-lg">
@@ -25,7 +45,7 @@ export const StatsDisplay: React.FC<
           </div>
           <div className="flex flex-col text-center">
             <div> Words </div>
-            <div className="mt-3 text-red-500 font-bold text-2xl">
+            <div className={`mt-3 ${currentColor} font-bold text-2xl`}>
               {" "}
               {stats.wordCount}
             </div>
