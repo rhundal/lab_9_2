@@ -36,10 +36,9 @@ export default function CharacterCounter() {
 
     setCurrentStats({
       characterCount: countCharacters(textFromUser),
-      wordCount: countWords(words),
-      readingTime: Date.now(),
+      wordCount: countCharacters(textFromUser) > 0 ? countWords(words) : 0,
+      readingTime: countCharacters(textFromUser) > 0 ? Date.now() : 0,
     });
-    // console.log("counted characters: " + stats.characterCount);
   }
 
   return (
