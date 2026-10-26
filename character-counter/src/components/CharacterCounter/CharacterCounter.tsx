@@ -3,21 +3,28 @@ import { useState } from "react";
 import { StatsDisplay } from "../StatsDisplay/StatsDisplay";
 import { TextInput } from "../TextInput/TextInput";
 import { type TextStats } from "../../types";
+import { type CharacterCounterProps } from "../../types";
 
 // character counter - Parent Component which combines the 2 components and manages state - intermediator between the textInput and StatsDisplay Component
 
-export default function CharacterCounter() {
+export default function CharacterCounter(props: CharacterCounterProps) {
   let stats: TextStats = {
     characterCount: 0,
     wordCount: 0,
-    readingTime: 0,
+    readingTime: "00:00",
   };
 
   const [words, setWords] = useState("");
   const [currentStats, setCurrentStats] = useState(stats);
 
+  const [minWords, setMinWords] = useState(25);
+  const [maxWords, setMaxWords] = useState(100);
+  const [targetReadingTime, setTargetReadingTime] = useState<string | number>(
+    0,
+  );
+
   function countCharacters(userTxt: string): number {
-    let charactersExtracted: string[] = userTxt.split(" ");
+    let charactersExtracted: string[] = userTxt.split("");
     let numberOfCharacters = 0;
 
     charactersExtracted.forEach((word) => {
@@ -33,11 +40,31 @@ export default function CharacterCounter() {
 
   function handleTextChange(textFromUser: string) {
     setWords(textFromUser);
+    let minutes: string | number = "00";
+    let seconds: string | number = "00";
+
+    if (textFromUser.length > 0) {
+      const words_per_minute = 200;
+      const countedWords = textFromUser.length > 0 ? countWords(words) : 0;
+
+      const totalTargetSeconds = (countedWords / words_per_minute) * 60;
+
+      setTargetReadingTime(totalTargetSeconds);
+
+      minutes = Math.floor(totalTargetSeconds / 60);
+      seconds = Math.floor(totalTargetSeconds % 60);
+
+      minutes = String(minutes).padStart(2, "0");
+      seconds = String(seconds).padStart(2, "0");
+    }
 
     setCurrentStats({
       characterCount: countCharacters(textFromUser),
       wordCount: countCharacters(textFromUser) > 0 ? countWords(words) : 0,
-      readingTime: countCharacters(textFromUser) > 0 ? Date.now() : 0,
+      readingTime:
+        countCharacters(textFromUser) > 0
+          ? `${Number(minutes)}:${Number(seconds)}`
+          : "00:00",
     });
   }
 

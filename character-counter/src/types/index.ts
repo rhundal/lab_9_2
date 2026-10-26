@@ -9,7 +9,7 @@ export interface TextInputProps {
 export interface TextStats {
   characterCount: number;
   wordCount: number;
-  readingTime: number; // in minutes
+  readingTime: number | string; // in minutes
 }
 
 export interface StatsDisplayProps {
