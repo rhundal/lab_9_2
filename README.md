@@ -1,3 +1,8 @@
+### Project Objective
+
+- Create an interactive character counter application that allows users to input text and see real-time statistics about their input, including character count, word count, and reading time.
+- Goal was to demonstrate state management, event handling, and component interaction using React hooks
+
 ### How to Run Project
 
 - cd character-counter
@@ -15,3 +20,7 @@
   - Code wise, I made use of stateVariables and onTextChange function supplied on the TextInput component to which I pass the handleTextChange function which makes sure all the components are responsive and tied together in the CharacterCounter component. I made use of tailwind to make sure the ui remains responsive design wise on mobile layout as well.
 - What challenges did you face when implementing the statistics calculations?
   - Initially understanding the exact role of targettime and then coming up with the formula was a bit unclear to me, I used google to gain some clarity on this functionality.
+
+### What I will do next
+
+- Add a timer to enable a realistic experience of calculating real-time WPM for user.
