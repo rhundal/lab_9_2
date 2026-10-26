@@ -7,18 +7,14 @@ import { type TextStats } from "../../types";
 // character counter - Parent Component which combines the 2 components and manages state - intermediator between the textInput and StatsDisplay Component
 
 export default function CharacterCounter() {
-  const [words, setWords] = useState("");
-
-  // build stats object and pass it to StatsDisplay Component
-  // characterCount: number;
-  // wordCount: number;
-  // readingTime: number; // in minutes
-
   let stats: TextStats = {
     characterCount: 0,
     wordCount: 0,
     readingTime: 0,
   };
+
+  const [words, setWords] = useState("");
+  const [currentStats, setCurrentStats] = useState(stats);
 
   function countCharacters(userTxt: string): number {
     let charactersExtracted: string[] = userTxt.split(" ");
@@ -38,12 +34,12 @@ export default function CharacterCounter() {
   function handleTextChange(textFromUser: string) {
     setWords(textFromUser);
 
-    stats = {
+    setCurrentStats({
       characterCount: countCharacters(textFromUser),
       wordCount: countWords(words),
       readingTime: Date.now(),
-    };
-    console.log("counted characters: " + stats.characterCount);
+    });
+    // console.log("counted characters: " + stats.characterCount);
   }
 
   return (
@@ -53,7 +49,7 @@ export default function CharacterCounter() {
           Character Counter
         </h1>
         <TextInput onTextChange={handleTextChange} />
-        <StatsDisplay showReadingTime={true} stats={stats} />
+        <StatsDisplay stats={currentStats} showReadingTime={true} />
       </div>
     </>
   );
